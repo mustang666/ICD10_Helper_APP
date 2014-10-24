@@ -27,6 +27,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.icd10_app.fragmento.Estatisticas;
+import com.example.icd10_app.fragmento.Favoritos;
+import com.example.icd10_app.fragmento.Home;
+import com.example.icd10_app.fragmento.Pesquisar;
 import com.example.icd10_app.modelo.Capitulo;
 import com.example.icd10_app.modelo.ICD10;
 
@@ -50,6 +54,9 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		final int[] ICONS = new int[] { R.drawable.home, R.drawable.search,
+				R.drawable.favoritos, R.drawable.statistics, };
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
@@ -80,8 +87,8 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 			// the adapter. Also specify this Activity object, which implements
 			// the TabListener interface, as the callback (listener) for when
 			// this tab is selected.
-			actionBar.addTab(actionBar.newTab()
-					.setText(mSectionsPagerAdapter.getPageTitle(i))
+
+			actionBar.addTab(actionBar.newTab().setIcon(ICONS[i])
 					.setTabListener(this));
 		}
 
@@ -198,10 +205,13 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 
 			switch (position) {
 			case 0:
-				return Pesquisar.newInstance(position);
+				return Home.newInstance(position);
+
 			case 1:
-				return Favoritos.newInstance(position);
+				return Pesquisar.newInstance(position);
 			case 2:
+				return Favoritos.newInstance(position);
+			case 3:
 				return Estatisticas.newInstance(position);
 
 			}
@@ -211,7 +221,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 
 		@Override
 		public int getCount() {
-			return 3;
+			return 4;
 		}
 
 		@Override
